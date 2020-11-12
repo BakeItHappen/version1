@@ -31,5 +31,6 @@ VALUES('Peanut Butter and Jelly', 'Spread Peanut Butter on one slice of bread, S
 --Inserts an Ingredient into the Ingredient table only if it does not exist already.
 INSERT INTO Ingredient(in_name) (SELECT 'rice' FROM dual WHERE NOT EXISTS (SELECT in_name FROM Ingredient WHERE in_name='rice'));
 
-INSERT INTO recipe_ingredient(in_id, rec_id) 
-VALUES((SELECT rec_id FROM recipe r WHERE r.rec_name = 'chicken teriyaki'), (SELECT in_id FROM ingredient i WHERE i.in_name = 'rice'))
+-- Inserts properly into recipe ingredient table. 
+INSERT INTO recipe_ingredient(rec_id, in_id) 
+VALUES((SELECT rec_id FROM recipe WHERE rec_name = 'chicken teriyaki'), (SELECT in_id FROM ingredient WHERE in_name = 'rice'))
