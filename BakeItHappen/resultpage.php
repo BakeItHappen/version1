@@ -24,7 +24,7 @@ error_reporting(E_ALL);
   <body>
 
     
-    <div class="container-fluid overlay">
+    <div class="">
         <header>
           <!--Front page banner image-->
           <img src="Pictures/banner4.png" class="img-long img-fluid top-banner" width="" height="" alt="">

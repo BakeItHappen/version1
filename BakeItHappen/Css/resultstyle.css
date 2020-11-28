@@ -1,5 +1,13 @@
 /* --removes scroll bar */
-.overlay{
+html,body
+{
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden; 
+}
+/* .overlay{
     position:absolute;
     padding:0;
     margin:0;
@@ -10,7 +18,7 @@
     width: auto;
     height: auto;
 
-}
+} */
 
 /* CUSTOM TITLE FONT */
 @font-face {
