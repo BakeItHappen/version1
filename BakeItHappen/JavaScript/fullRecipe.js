@@ -10,11 +10,32 @@ var recipeIdFromStorage;
 
 // WHEN THE PAGE IS LOADED DO THIS
 $(document).ready(function() {
-    getFullRecipe();
+    console.log("HERE");
+    console.log(String(sessionStorage.getItem("php")));
+    console.log(String(sessionStorage.getItem("api")));
+    console.log(String(sessionStorage.getItem("recipeId")));
+    console.log(String(sessionStorage.getItem("phpId")));
+    console.log(String(sessionStorage.getItem("phpName")));
+    console.log(String(sessionStorage.getItem("phpDescription")));
+    var php = String(sessionStorage.getItem("php"));
+    var api = String(sessionStorage.getItem("api"));
+    if(php === "yes"){
+        console.log("php");
+        getPhpRecipe();
+    }
+    else if(api ==="yes"){
+        console.log("api");
+        getFullRecipe();
+    }
 });
+
+function getPhpRecipe(){
+    console.log("herephp");
+}
 
 //Function that gets the full recipe on the new page
 function getFullRecipe(){
+    console.log("hereapi");
 
     //get recipe id from session storage
     recipeIdFromStorage = String(sessionStorage.getItem("recipeId")); 
@@ -36,14 +57,14 @@ function getFullRecipe(){
         var fullRecipe = data;
         showFullRecipe(fullRecipe);
     }); 
-    
 }
 
+
+
 //CONNECTS TO THE API to get ingredients
-async function getIngredientsAsync() 
-{
-  let response = await fetch(ingredientsUrl);
-  let data = await response.json();
+async function getIngredientsAsync() {
+  let response =  await fetch(ingredientsUrl);
+  let data =  await response.json();
   return data;
 }
 
@@ -70,11 +91,10 @@ function showIngredients(ingredients){
 }
 
 //FUNCTION THAT CONNECTS TO THE API to get instructions
-async function getFullRecipeAsync() 
-{
-  let response = await fetch(fullRecipeUrl);
-  let data = await response.json();
-  return data;
+async function getFullRecipeAsync() {
+    let response = await fetch(fullRecipeUrl);
+    let data = await response.json();
+    return data;
 }
 
 // OUTPUTS THE FULL RECIPE INSTRUCTIONS

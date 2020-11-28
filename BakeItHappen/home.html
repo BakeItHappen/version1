@@ -23,7 +23,7 @@
   </head>
 
   <body>
-    <div class="container-fluid overlay">
+    <div class=" overlay">
         <header>
             <!--Front page banner image-->
             <img src="Pictures/banner4.png" class="img-long" width="" height="" alt="">
@@ -50,6 +50,7 @@
                         </li> 
                        
                     </ul> 
+                    
                 </nav> 
             </div>  
         </header>
@@ -59,14 +60,14 @@
                 <!--Page title, just above search bar-->
                 <h1 class="alt-font" id="title">Bake It Happen</h1> 
 
-                <form action="#" id="searchForm">
+                <form  action="phpSearch.php" method="post" id="searchForm">
                     <!--Search bar and search buttons group-->
                     <div class="row justify-content-center mt-4 search-group">
                         <div class="col-md-10">
                             <div class="input-group shadow md-form form-sm pl-0"> 
                                 
                                 <!-- SEARCH BAR -->
-                                <input class="form-control my-0 py-4  main-search-form " id="search" type="text" placeholder="Enter Ingredients, Recipes, Allergens, etc..." aria-label="Search">
+                                <input class="form-control my-0 py-4  main-search-form " id="search" name="search" type="text" placeholder="Enter Ingredients, Recipes, Allergens, etc..." aria-label="Search">
                                 
                                 <!-- SEARCH BUTTONS -->
                                 <div class="input-group-append">

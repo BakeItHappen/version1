@@ -10,19 +10,22 @@ randomButton.onclick = startRandomSearch;
 function startRegularSearch(event) {
     //prevent the default submit action 
     event.preventDefault();
+
     //INITIALIZE OFFSET TO ZERO, BECAUSE IT WILL BE FROM LAST USE
     sessionStorage.setItem("randomOffset", 0);
 
-    searchValues = document.getElementById("search").value;
-    
+    //GETS SEARCH VALUES FROM PAGE
+    var searchValues = document.getElementById("search").value;
+
+    //IF NO SEARCH INPUT IS ENTERED GIVE A RANDOM OFFSET
     if (searchValues == ""){
         randomOffset = getRndInteger(0,1000);
         sessionStorage.setItem("randomOffset", randomOffset);
     }
 
-    //Save search value into a session variable
+    //Save search value into a session variable/post
     sessionStorage.setItem("searchValues", searchValues);
-    window.location.href = "resultpage.html";
+    window.location = "resultpage.php?search=" + searchValues;
 
 } 
 
@@ -36,7 +39,7 @@ function startRandomSearch(event) {
 
     //Take us to a full Recipe page that is random
     sessionStorage.setItem("recipeId", randomId);
-    window.location.href = "fullrecipe.html";
+    window.location.href = "fullrecipe.php";
 
 } 
 
@@ -44,3 +47,4 @@ function startRandomSearch(event) {
 function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
   }
+

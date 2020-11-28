@@ -1,94 +1,62 @@
-<!doctype html>
-<html>
-<body>
-
-<?php  
-$ingredients = $_POST["res"]; 
+<?php 
+error_reporting(E_ALL);
+ini_set('display_errors', 1); 
+$ingredients = $_GET["search"];
 $ingredients_arr = explode(" ", $ingredients);
 $servername = "localhost";
 $username = "root";
-$dbname = "test2";
+$dbname = "bakeithappen";
 $password = "";
+
+$output = array();
+
+
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
+
 // Check connection
 if (!$conn) {
 die("Connection failed: " . mysqli_connect_error());
 }
 
-// Runs if 4 Ingredients are input
-if (sizeof($ingredients_arr) == 4) {
+// SEARCHES DATABASE FOR EVERY SEARCH TERM/ INGREDIENT
+if (sizeof($ingredients_arr) > 0) {
     
     //Create SQL SELECT Query to be run. 
-    $query = "SELECT rec_name, rec_instruct 
-    FROM Recipe AS r 
-    INNER JOIN recipe_ingredient i ON i.rec_id = r.rec_id 
-    INNER JOIN Ingredient x ON x.in_id = i.in_id 
-    WHERE x.in_name IN (?, ?, ?, ?) 
-    GROUP BY r.rec_name 
-    HAVING COUNT(*) = 4";
+    // selects all recipes and instructions from the recipe table 
+
+    $query = "SELECT r.recID, r.recName, r.recInstruct
+    FROM recipe AS r 
+    INNER JOIN recipe_ingredient i ON i.recId = r.recId 
+    INNER JOIN ingredient x ON x.inId = i.inId
+    WHERE x.inName IN (?)";
 
     //Prepare the SELECT statement using mysqli
     $statement = $conn->prepare($query);
-    
-    //Bind inputs from user for mysqli to use 
-    $statement->bind_param("ssss", $i0, $i1, $i2, $i3);
-    $i0 = $ingredients_arr[0];
-    $i1 = $ingredients_arr[1];
-    $i2 = $ingredients_arr[2];
-    $i3 = $ingredients_arr[3];
+    echo $conn->error;
 
-    //Execute the SELECT Query
-    $statement->execute();
-
-    //Get the result and format it
-    $result = $statement->get_result();
-    $data = $result->fetch_assoc();
-
-    //Print results and close connection
-    echo $data['rec_name'];
-    echo $data['rec_instruct'];
-    mysqli_close($conn);
-}
-
-
-// Runs if 3 Ingredients are input
-elseif (sizeof($ingredients_arr) == 3) {
-      //Create SQL SELECT Query to be run. 
-      $query = "SELECT rec_name, rec_instruct 
-      FROM Recipe AS r 
-      INNER JOIN recipe_ingredient i ON i.rec_id = r.rec_id 
-      INNER JOIN Ingredient x ON x.in_id = i.in_id 
-      WHERE x.in_name IN (?, ?, ?) 
-      GROUP BY r.rec_name 
-      HAVING COUNT(*) = 3";
-  
-      //Prepare the SELECT statement using mysqli
-      $statement = $conn->prepare($query);
-      
+    for ($x = 0; $x < sizeof($ingredients_arr); $x++) {
       //Bind inputs from user for mysqli to use 
-      $statement->bind_param("sss", $i0, $i1, $i2);
-      $i0 = $ingredients_arr[0];
-      $i1 = $ingredients_arr[1];
-      $i2 = $ingredients_arr[2];
-  
+      $ingredient = $ingredients_arr[$x];
+    
+      $statement->bind_param("s", $ingredient);
+
       //Execute the SELECT Query
       $statement->execute();
-  
       //Get the result and format it
       $result = $statement->get_result();
-      $data = $result->fetch_assoc();
-  
-      //Print results and close connection
-      echo $data['rec_name'];
-      echo $data['rec_instruct'];
-      mysqli_close($conn);
+      while ($row = $result->fetch_assoc()) {
+        // printf ("%s - %s\n", $row["recID"], $row["recName"]);
+        array_push($output, $row);
+      }
+             
+    }
+    $output_json =  json_encode($output);
+    $output_length = count($output);
+    mysqli_close($conn);
 }
 else {
   echo ('Incorrect Number of Ingredients Entered');
 }
 
-
 ?>
-</body>
-</html>
