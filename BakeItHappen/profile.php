@@ -1,5 +1,6 @@
 <?php
 include("includes/config.php");
+include("includes/handlers/register-handler.php");
 
 if(isset($_SESSION['userLoggedIn'])){
     $userLoggedIn = $_SESSION['userLoggedIn'];
@@ -7,6 +8,18 @@ if(isset($_SESSION['userLoggedIn'])){
 else{
     header("Location: register.php");
 }
+
+//$query = "SELECT * FROM Users WHERE username='$username' AND password='$password'";
+/*$query = "SELECT * FROM Users WHERE username='username' AND password='password'";
+
+$query_stmt = $con->prepare($query);
+
+oci_bind_by_name($query_stmt, ':email', $email);
+	  
+oci_execute($query_stmt);
+		
+oci_fetch($query_stmt);
+$old_email = oci_result($query_stmt, "EMAIL");*/
 ?>
 
 <!doctype html>
@@ -48,7 +61,7 @@ else{
                         </li>  -->
 
                         <li class="nav-item"> 
-                            <a class="nav-link  " href="home.html"> 
+                            <a class="nav-link  " href="home-loggedin.php"> 
                             Home 
                             </a> 
                         </li> 
@@ -62,6 +75,10 @@ else{
                 </nav> 
             </div>  
         </header>
+
+		<?php
+			//$query = mysqli_query($this->con, "SELECT * FROM Users WHERE username='$un' AND password='$pw'" );
+		?>
 
         <section>
             <div class="container">
@@ -77,8 +94,8 @@ else{
                         <div class="float-left pr-3 pb-3">
 							<img src="Pictures/Profile_avatar.png">
 						</div>
-							<p>Username:</p>
-							<p>Email:</p>
+							<p>Username: <?= $userLoggedIn ?></p>
+							<p>Email: <!--<?= $old_email ?>--></p>
 							<p>Name:</p><br>
 							<p>Recipes Submitted: 0</p><br>
                             </div>
