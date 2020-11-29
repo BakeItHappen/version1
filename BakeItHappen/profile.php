@@ -12,16 +12,27 @@ else{
 }
 
 //$query = "SELECT * FROM Users WHERE username='$username' AND password='$password'";
-/*$query = "SELECT * FROM Users WHERE username='username' AND password='password'";
+$query = "SELECT * FROM Users WHERE username='userLoggedIn'";
 
-$query_stmt = $con->prepare($query);
+$query_stmt = $con->query($query);
 
-oci_bind_by_name($query_stmt, ':email', $email);
+if ($query_stmt->num_rows > 0) {
+  // output data of each row
+  while($row = $query_stmt->fetch_assoc()) {
+    echo "username: " . $row["username"]. " - Name: " . $row["firstName"]. " " . $row["lastName"]. "<br>";
+  }
+} else {
+  echo "0 results";
+}
+
+//$query_stmt->execute(
+
+//bind_param($query_stmt, ':email', $email);
 	  
-oci_execute($query_stmt);
+//oci_execute($query_stmt);
 		
-oci_fetch($query_stmt);
-$old_email = oci_result($query_stmt, "EMAIL");*/
+//oci_fetch($query_stmt);
+//$old_email = oci_result($query_stmt, "EMAIL");
 ?>
 
 <!doctype html>
