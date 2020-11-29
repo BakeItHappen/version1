@@ -1,7 +1,7 @@
 <?php
 
 if (isset($_POST['loginButton'])){
-    echo "login button was pressed";
+    //echo "login button was pressed";
     $username = $_POST['loginUsername'];
     $password = $_POST['loginPassword'];
 
@@ -9,6 +9,6 @@ if (isset($_POST['loginButton'])){
 
     if($result == true){
         $_SESSION['userLoggedIn'] = $username; 
-        header("Location: profile.php");
+        header("Location: submit.html");
     }
 }

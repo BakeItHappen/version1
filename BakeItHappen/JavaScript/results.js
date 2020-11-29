@@ -30,6 +30,8 @@ $(document).ready(function() {
     url += "&offset=" + randomOffset;
     url += "&instructionsRequired=true";
 
+    //OUTPUT RECIPES FROM PHP
+    // ouputPhp();
 
     //CALL THE FUNCTION TO CONNECT TO API and return the recipe list
     getRecipesAsync()
@@ -50,21 +52,18 @@ async function getRecipesAsync()
 
 //FUNCTION THAT HAPPENS AFTER WE CONNECT TO THE API
 function showRecipes(recipeList){
-  recipeResults.innerHTML = "";
+//   recipeResults.innerHTML = "";
   recipeSearchValues.innerHTML="";
   recipeSearchValues.innerHTML=searchValues;
   for (i = 0; i < recipeList.results.length; i++) {
       resultUrl = String(recipeList["results"][i].image);
       recipeTitle = String(recipeList["results"][i].title);
       recipeId =  String(recipeList["results"][i].id);
-      
 
       //OUTPUT RECIPES
       //put recipe id in session storage
-      // recipeResults.innerHTML += "<a href='fullrecipe.html' onclick='addToSessionVariable("+ recipeId + ");' >" + recipeTitle + "</a>";
-      // recipeResults.innerHTML += "<br>";
 
-      recipeResults.innerHTML += `<a href='fullrecipe.html' onclick='addToSessionVariable(`+ recipeId + `);' class='orange-border rounded mt-1 row p-3 recipe-item' >
+      recipeResults.innerHTML += `<a href='fullrecipe.php' onclick='addToSessionVariable(`+ recipeId + `);' class='orange-border rounded mt-1 row p-3 recipe-item' >
                                       <div class='col-md-4'>
                                             <div class='image'> 
                                                     <img src=`+ resultUrl + ` class='rounded' width='200px' height='200px'> 
@@ -77,7 +76,6 @@ function showRecipes(recipeList){
                                             </div> 
                                         </div> 
                                   </a>`;
-                                           
     }
 }
 
@@ -85,4 +83,7 @@ function showRecipes(recipeList){
 //adds recipe id we click on to the session variable to take us to next page
 function addToSessionVariable(recipeId){
     sessionStorage.setItem("recipeId", recipeId);
+    sessionStorage.setItem("api", "yes");
+    sessionStorage.setItem("php", "no");
 }
+

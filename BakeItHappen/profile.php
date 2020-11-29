@@ -2,6 +2,8 @@
 include("includes/config.php");
 include("includes/handlers/register-handler.php");
 
+session_destroy();
+
 if(isset($_SESSION['userLoggedIn'])){
     $userLoggedIn = $_SESSION['userLoggedIn'];
 }
