@@ -120,8 +120,8 @@ $lastName = $row["lastName"];
                         <div class="float-left pr-3 pb-3">
 							<img src="Pictures/Profile_avatar.png">
 						</div>
-							<p id="username">Username: <?= $userLoggedIn ?></p>
-							<p id="email">Email: <!--<?= $old_email ?>--></p>
+							<p id="username">Username: </p>
+							<p id="email">Email:</p>
 							<p id="name">Name:</p><br>
 							<p id="recipes_submitted">Recipes Submitted: 0</p><br>
                             </div>
