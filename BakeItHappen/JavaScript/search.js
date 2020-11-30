@@ -39,6 +39,8 @@ function startRandomSearch(event) {
 
     //Take us to a full Recipe page that is random
     sessionStorage.setItem("recipeId", randomId);
+    sessionStorage.setItem("api", "yes");
+    sessionStorage.setItem("php", "no");
     window.location.href = "fullrecipe.php";
 
 } 
