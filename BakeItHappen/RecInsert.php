@@ -21,14 +21,14 @@ die("Connection failed: " . mysqli_connect_error());
 }
 
 //Create insert for Recipe Table
-$recTable = "INSERT INTO Recipe (rec_name, rec_instruct) VALUES(?, ?)";
+$recTable = "INSERT INTO Recipe (recName, recInstruct) VALUES(?, ?)";
 
 //Create insert for Ingredient Table
-$inTable = "INSERT INTO Ingredient(in_name) (SELECT ? FROM dual WHERE NOT EXISTS (SELECT in_name FROM Ingredient WHERE in_name=?))";
+$inTable = "INSERT INTO ingredient(inName) (SELECT ? FROM dual WHERE NOT EXISTS (SELECT inName FROM ingredient WHERE inName=?))";
 
 //Create insert for RecipeIngredient Table
-$recInTable = "INSERT INTO recipe_ingredient(rec_id, in_id) 
-VALUES((SELECT rec_id FROM recipe WHERE rec_name = ?), (SELECT in_id FROM ingredient WHERE in_name = ?))";
+$recInTable = "INSERT INTO recipe_ingredient(recID, inID) 
+VALUES((SELECT recID FROM recipe WHERE recName = ?), (SELECT inID FROM ingredient WHERE inName = ?))";
 
 
 //Prepare the INSERT statement for Recipe Table
