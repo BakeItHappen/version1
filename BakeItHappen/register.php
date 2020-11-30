@@ -65,7 +65,7 @@ function getInputValue($name){
 
 
 
-<div class="overlay">
+	<div class="overlay">
         <header>
             <!--Front page banner image-->
             <img src="Pictures/banner2.png" class="img-long" width="100%;" height="" alt="">
@@ -74,122 +74,116 @@ function getInputValue($name){
             <div class="container-fluid ">
                 <nav class="navbar navbar-expand  bg-transparent"> 
                     <ul class="navbar-nav ml-auto "> 
-                        <!-- <li class="nav-item  "> 
-                            <a class="nav-link rounded-left" href="foodmap.html"> 
-                            Find Restaurants 
-                            </a> 
-                        </li>  -->
 
                         <li class="nav-item"> 
                             <a class="nav-link  "href="home.html"> 
                             Home 
                             </a> 
                         </li> 
-                        <li class="nav-item "> 
-                            <a class="nav-link rounded-right" href="register.php"> 
-                            Login/Signup 
-                            </a> 
-                        </li> 
                        
                     </ul> 
                 </nav> 
-            </div>  
+            </div> 		
         </header>
 
-
-    <div id="background">
-    <div id="loginContainer">
-            <div id="inputContainer">
-                <form id="loginForm" action="register.php" method="POST" enctype="multipart/form-data">
-                    <h1>Bake It Happen</h1>
-                    <h2>Login to your account</h2>
-                    <p>
-                        <?php echo $account->getError(Constants::loginFailed);?>
-                        <label for="loginUsername">Username</label>
-                        <input id="loginUsername" name="loginUsername" type="text" placeholder="e.g bartSimpson" required>
-                    </p>
-                    <p>
-                        <label for="loginPassword">Password</label>
-                        <input id="loginPassword" name="loginPassword" type="password" placeholder="Your password" required>
-                    </p>
-                    <button type="submit" name="loginButton">LOG IN</button>
-                    <div class="hasAccountText">
-                        <span id="hideLogin">Don't have an account yet? Click here to sign up.</span>
-                    </div>
-            
-                </form>
-            
-                <form id="registerForm" action="register.php" method="POST" enctype="multipart/form-data" >
-                    <h1>Bake It Happen</h1>
-                    <h2>Create your free account</h2>
-                    <p>
-                        <?php echo $account->getError(Constants::usernameCharacters); ?>
-                        <?php echo $account->getError(Constants::usernameTaken); ?>
-                        <label for="username">Username</label>
-                        <input id="username" name="username" type="text" placeholder="e.g bartSimpson"
-                            value="<?php getInputValue('username') ?>" required>
-                    </p>
-            
-                    <p>
-                        <?php echo $account->getError(Constants::firstNameCharacters); ?>
-                        <label for="firstName">First name</label>
-                        <input id="firstName" name="firstName" type="text" placeholder="e.g Bart"
-                            value="<?php getInputValue('firstName') ?>" required>
-                    </p>
-            
-                    <p>
-                        <?php echo $account->getError(Constants::lastNameCharacters); ?>
-                        <label for="lastName">Last name</label>
-                        <input id="lastName" name="lastName" type="text" placeholder="e.g Simpson"
-                            value="<?php getInputValue('lastName') ?>" required>
-                    </p>
-                   
-                    
-                        <p>
-                        <label class="custom-file-upload">
-                        Select image to upload:
-                        <input type="file" name="image" id="image">
-                        </p>
-                        </label>
-                    <p>
-                        <?php echo $account->getError(Constants::emailTaken) ?>
-                        <?php echo $account->getError(Constants::emailNotMatch) ?>
-                        <?php echo $account->getError(Constants::emailInvalid) ?>
-                        <label for="email">Email</label>
-                        <input id="email" name="email" type="email" placeholder="e.g bart@gmail.com"
-                            value="<?php getInputValue('email') ?>" required>
-                    </p>
-            
-                    <p>
-                        <label for="email2">Confirm email</label>
-                        <input id="email2" name="email2" type="email" placeholder="e.g bart@gmail.com"
-                            value="<?php getInputValue('email2') ?>" required>
-                    </p>
-            
-                    <p>
-                        <?php echo $account->getError(Constants::passwordsNotMatch) ?>
-                        <?php echo $account->getError(Constants::passwordsNotAlphanumeric) ?>
-                        <?php echo $account->getError(Constants::passwordCharacters) ?>
-                        <label for="password">Password</label>
-                        <input id="password" name="password" type="password" placeholder="Your password" required>
-                    </p>
-            
-                    <p>
-                        <label for="password2">Confirm password</label>
-                        <input id="password2" name="password2" type="password" placeholder="Your password" required>
-                    </p>
-            
-            
-                    <button type="submit" name="registerButton">SIGN UP</button>
-                    <div class="hasAccountText">
-                        <span id="hideRegister">Already have an account? Click here to login.</span>
-                    </div>
-            
-                </form>            
-            </div>
-        </div>
-    </div>
-         <!--Bottom section of page, contains silly quote-->
+		
+	<section>
+		<div class="container">
+		 <h1 class="alt-font" id="title">Bake It Happen</h1> 
+			<div id="background"> 
+			<div id="loginContainer">
+					<div id="inputContainer">
+						<form id="loginForm" action="register.php" method="POST" enctype="multipart/form-data">
+							<h2>Login to your account</h2>
+							<p>
+								<?php echo $account->getError(Constants::loginFailed);?>
+								<label for="loginUsername">Username</label>
+								<input id="loginUsername" name="loginUsername" type="text" placeholder="e.g bartSimpson" required>
+							</p>
+							<p>
+								<label for="loginPassword">Password</label>
+								<input id="loginPassword" name="loginPassword" type="password" placeholder="Your password" required>
+							</p>
+							<button type="submit" name="loginButton">LOG IN</button>
+							<div class="hasAccountText">
+								<span id="hideLogin">Don't have an account yet? Click here to sign up.</span>
+							</div>
+					
+						</form>
+					
+						<form id="registerForm" action="register.php" method="POST" enctype="multipart/form-data" >
+							<h2>Create your free account</h2>
+							<p>
+								<?php echo $account->getError(Constants::usernameCharacters); ?>
+								<?php echo $account->getError(Constants::usernameTaken); ?>
+								<label for="username">Username</label>
+								<input id="username" name="username" type="text" placeholder="e.g bartSimpson"
+									value="<?php getInputValue('username') ?>" required>
+							</p>
+					
+							<p>
+								<?php echo $account->getError(Constants::firstNameCharacters); ?>
+								<label for="firstName">First name</label>
+								<input id="firstName" name="firstName" type="text" placeholder="e.g Bart"
+									value="<?php getInputValue('firstName') ?>" required>
+							</p>
+					
+							<p>
+								<?php echo $account->getError(Constants::lastNameCharacters); ?>
+								<label for="lastName">Last name</label>
+								<input id="lastName" name="lastName" type="text" placeholder="e.g Simpson"
+									value="<?php getInputValue('lastName') ?>" required>
+							</p>
+						   
+							
+								<p>
+								<label class="custom-file-upload">
+								Select image to upload:
+								<input type="file" name="image" id="image">
+								</p>
+								</label>
+							<p>
+								<?php echo $account->getError(Constants::emailTaken) ?>
+								<?php echo $account->getError(Constants::emailNotMatch) ?>
+								<?php echo $account->getError(Constants::emailInvalid) ?>
+								<label for="email">Email</label>
+								<input id="email" name="email" type="email" placeholder="e.g bart@gmail.com"
+									value="<?php getInputValue('email') ?>" required>
+							</p>
+					
+							<p>
+								<label for="email2">Confirm email</label>
+								<input id="email2" name="email2" type="email" placeholder="e.g bart@gmail.com"
+									value="<?php getInputValue('email2') ?>" required>
+							</p>
+					
+							<p>
+								<?php echo $account->getError(Constants::passwordsNotMatch) ?>
+								<?php echo $account->getError(Constants::passwordsNotAlphanumeric) ?>
+								<?php echo $account->getError(Constants::passwordCharacters) ?>
+								<label for="password">Password</label>
+								<input id="password" name="password" type="password" placeholder="Your password" required>
+							</p>
+					
+							<p>
+								<label for="password2">Confirm password</label>
+								<input id="password2" name="password2" type="password" placeholder="Your password" required>
+							</p>
+					
+					
+							<button type="submit" name="registerButton">SIGN UP</button>
+							<div class="hasAccountText">
+								<span id="hideRegister">Already have an account? Click here to login.</span>
+							</div>
+					
+						</form>            
+					</div>
+				</div>
+			</div>
+			</div>
+		</section>	
+			
+	<!--Bottom section of page, contains silly quote-->
          <div class="row justify-content-center text-center m-5 ">
                     <div class="col-md-8 quote ">
                         <h7>"Let food be thy medicine and medicine be thy food."
