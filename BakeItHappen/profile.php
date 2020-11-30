@@ -2,7 +2,8 @@
 include("includes/config.php");
 include("includes/handlers/register-handler.php");
 
-session_destroy();
+// session_destroy();
+session_start();
 
 if(isset($_SESSION['userLoggedIn'])){
     $userLoggedIn = $_SESSION['userLoggedIn'];
@@ -10,29 +11,41 @@ if(isset($_SESSION['userLoggedIn'])){
 else{
     header("Location: register.php");
 }
+$email ="";
+$firstName = "";
+$lastName = "";
+$servername = "localhost";
+  $username = "root";
+  $dbname = "bakeithappen";
+  $password = "";
 
-//$query = "SELECT * FROM Users WHERE username='$username' AND password='$password'";
-$query = "SELECT * FROM Users WHERE username='userLoggedIn'";
+  // Create connection
+  $conn = new mysqli($servername, $username, $password, $dbname);
 
-$query_stmt = $con->query($query);
-
-if ($query_stmt->num_rows > 0) {
-  // output data of each row
-  while($row = $query_stmt->fetch_assoc()) {
-    echo "username: " . $row["username"]. " - Name: " . $row["firstName"]. " " . $row["lastName"]. "<br>";
+  // Check connection
+  if (!$conn) {
+  die("Connection failed: " . mysqli_connect_error());
   }
-} else {
-  echo "0 results";
-}
 
-//$query_stmt->execute(
+  //CREATE QUERY
+$query = "SELECT firstName, lastName, email
+      FROM users
+      WHERE username IN (?)";
 
-//bind_param($query_stmt, ':email', $email);
-	  
-//oci_execute($query_stmt);
-		
-//oci_fetch($query_stmt);
-//$old_email = oci_result($query_stmt, "EMAIL");
+// prepare and bind
+$stmt = $conn->prepare($query);
+$stmt->bind_param("s", $userLoggedIn);
+
+//Execute the SELECT Query
+$stmt->execute();
+
+//Get the result and save to variables
+$result = $stmt->get_result();
+$row = $result->fetch_assoc();
+$email = $row["email"];
+$firstName = $row["firstName"];
+$lastName = $row["lastName"];
+
 ?>
 
 <!doctype html>
@@ -107,10 +120,10 @@ if ($query_stmt->num_rows > 0) {
                         <div class="float-left pr-3 pb-3">
 							<img src="Pictures/Profile_avatar.png">
 						</div>
-							<p>Username: <?= $userLoggedIn ?></p>
-							<p>Email: <!--<?= $old_email ?>--></p>
-							<p>Name:</p><br>
-							<p>Recipes Submitted: 0</p><br>
+							<p id="username">Username: </p>
+							<p id="email">Email:</p>
+							<p id="name">Name:</p><br>
+							<p id="recipes_submitted">Recipes Submitted: 0</p><br>
                             </div>
                         
                     </div>
@@ -126,6 +139,21 @@ if ($query_stmt->num_rows > 0) {
             </div>
         </section>
     </div>
+    <script type="text/javascript">
+    // ACCESS PHP VARIABLES AND SAVE TO JS VARIABLES
+    var phpusername = "<?php if (isset($userLoggedIn)) {echo $userLoggedIn;} ?>";
+    var phpemail = "<?php echo $email; ?>"; 
+    var phpfirstName = "<?php echo $firstName; ?>"; 
+    var outusername = document.getElementById("username");
+    var outemail = document.getElementById("email");
+    var outname = document.getElementById("name");
+    
+    // ADD TO PAGE
+    outusername.innerHTML += String(phpusername);
+    outemail.innerHTML += String(phpemail);
+    outname.innerHTML += String(phpfirstName);
+
+    </script>
 		
     
     <!-- Optional JavaScript -->
