@@ -5,7 +5,24 @@ html, body{
     height: 100%;
     }
     
+  
     
+    /* CUSTOM TITLE FONT */
+    @font-face {
+        font-family: titleFont;
+        src: url(../Fonts/QuiteMagicalRegular-8VA2.ttf);
+    }
+
+/* BAKE IT HAPPEN TITLE */
+#title{
+    font-family: titleFont;
+    text-align: center;
+	padding-top: .5em;
+    padding-bottom: .1em;
+    font-size: 4rem;
+    color:#ffa600;
+}
+
     #background {
         
         background-color: #000000;
@@ -19,15 +36,9 @@ html, body{
         width: 100%;
         position: relative;
         overflow: hidden;
-    }
-    
-    
-    /* CUSTOM TITLE FONT */
-    @font-face {
         font-family: titleFont;
-        src: url(../Fonts/QuiteMagicalRegular-8VA2.ttf);
+        font-size: 3rem;
     }
-    
     
     
     
@@ -62,11 +73,11 @@ html, body{
         -webkit-text-stroke: 1px black;
         -webkit-text-fill-color: #ffa600; */
     }
-    #inputContainer h1{
+    /*#inputContainer h1{
         text-align: center;
         font-family: titleFont;
         font-size: 3rem;
-    }
+    }*/
     #inputContainer h2{
         text-align: center;
         font-family: titleFont;
@@ -99,17 +110,16 @@ html, body{
         font-size: 12px;
         font-size: 13px;.
 */
-    #inputContainer button{
-        background-color: transparent;
-        border: 2px solid #ffa600;
-        border-radius: 250px;
-        color: #ffa600;
+   #inputContainer button{
+        background-color: #007bff;;
+        border-radius: 8px;
+        color: white;
         display: block;
-        font-size: 16px;
         font-size: 1rem;
         letter-spacing: 1px;
         margin: 20px auto;
         height: 41px;
+        border: none;
     }
     #inputContainer button:hover{
         cursor: pointer;
@@ -157,6 +167,3 @@ html, body{
     font-style: italic;
     color:  #b1a394;
 }
-
-
- 

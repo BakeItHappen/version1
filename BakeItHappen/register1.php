@@ -111,7 +111,7 @@ function getInputValue($name){
                 <form id="loginForm" action="register1.php" method="POST" enctype="multipart/form-data">
                     <h2>Login to your account</h2>
                     <p>
-                        <?php echo $account->getError(Constants::loginFailed);?>
+                        <?php echo $account->getError(Constants::loginFailed);?><br>
                         <label for="loginUsername">Username</label>
                         <input id="loginUsername" name="loginUsername" type="text" placeholder="e.g bartSimpson" required>
                     </p>
