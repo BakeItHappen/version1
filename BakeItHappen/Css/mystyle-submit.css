@@ -112,3 +112,8 @@ form{
 	padding-left: .5em;
     padding-bottom: .5em;
 }
+
+table{
+  border: 1px dotted;
+  border-collapse: collapse;
+}
