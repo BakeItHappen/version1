@@ -1,3 +1,14 @@
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
+if(isset($_SESSION['userLoggedIn'])){
+    $userLoggedIn = $_SESSION['userLoggedIn'];
+}
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -48,17 +59,27 @@
                     </form>
               </li>
 
-              <li class="nav-item"> 
-                  <a class="nav-link mt-1" href="/submit.html"> 
+              <li class="nav-item" id="submitLink"> 
+                  <a href="submit.php" type="php"  class="nav-link mt-1" > 
                   Submit Recipe 
                   </a> 
               </li>
                
-              <li class="nav-item "> 
-                  <a class="nav-link rounded-right mt-1" href="/home2.html"> 
+              <li class="nav-item " id="registerLink"> 
+                  <a href="register.php" type="php"  class="nav-link rounded-right mt-1" > 
                   Login/Signup 
                   </a> 
               </li> 
+              <li class="nav-item " id="profileLink"> 
+                            <a href="profile.php" type="php"   class="nav-link rounded-right mt-1 " > 
+                            Profile 
+                            </a> 
+              </li>
+              <li class="nav-item" id="logoutLink"> 
+                            <a class="nav-link rounded-right mt-1  " href="logout.php"> 
+                            Logout
+                            </a> 
+                        </li> 
               
             </ul> 
           </div>
@@ -131,6 +152,31 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
     <!-- CUSTOM JS -->
     <script type="text/javascript" src="../BakeItHappen/JavaScript/fullRecipe.js"></script>
+    <script type="text/javascript">
+      
+      $(document).ready(function(){  
+      
+      var loggedIn = "<?php echo isset($userLoggedIn) ?>";
+      if(loggedIn){
+          //show submit recipe and profile link
+          document.getElementById("submitLink").style.display = "block";
+          document.getElementById("profileLink").style.display = "block";
+          document.getElementById("registerLink").style.display = "none";
+          document.getElementById("logoutLink").style.display = "block";
+
+      
+
+      }
+      else{
+          // hide submit recipe and profile link and show login link
+          document.getElementById("submitLink").style.display = "none";
+          document.getElementById("profileLink").style.display = "none";
+          document.getElementById("registerLink").style.display = "block";
+          document.getElementById("logoutLink").style.display = "none";
+
+      }
+            });
+    </script>
   
   </body>
 </html>

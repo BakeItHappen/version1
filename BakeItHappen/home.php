@@ -1,13 +1,10 @@
 <?php
-include("includes/config.php");
+    session_start();
+    if(isset($_SESSION['userLoggedIn'])){
+        $userLoggedIn = $_SESSION['userLoggedIn'];
+    }
+    ?>
 
-if(isset($_SESSION['userLoggedIn'])){
-    $userLoggedIn = $_SESSION['userLoggedIn'];
-}
-else{
-    header("Location: register.php");
-}
-?>
 
 <!doctype html>
 <html lang="en">
@@ -34,7 +31,7 @@ else{
   </head>
 
   <body>
-    <div class="">
+    <div class=" overlay">
         <header>
             <!--Front page banner image-->
             <img src="Pictures/banner4.png" class="img-long" width="1000" height="" alt="">
@@ -49,18 +46,29 @@ else{
                             </a> 
                         </li>  -->
 
-                        <li class="nav-item"> 
+                        <li class="nav-item" id="submitLink"> 
                             <a class="nav-link  " href="submit.php"> 
                             Submit Recipe 
                             </a> 
                         </li> 
-                        <li class="nav-item "> 
+                        <li class="nav-item " id="registerLink"> 
+                            <a href="register.php" type="php" class="nav-link rounded-right "> 
+                            Login/Signup 
+                            </a> 
+                        </li> 
+                        <li class="nav-item " id="profileLink"> 
                             <a href="profile.php" type="php" class="nav-link rounded-right " href="/profile.php"> 
                             Profile 
+                            </a> 
+                        </li>
+                        <li class="nav-item" id="logoutLink"> 
+                            <a class="nav-link  " href="logout.php"> 
+                            Logout
                             </a> 
                         </li> 
                        
                     </ul> 
+                    
                 </nav> 
             </div>  
         </header>
@@ -70,14 +78,14 @@ else{
                 <!--Page title, just above search bar-->
                 <h1 class="alt-font" id="title">Bake It Happen</h1> 
 
-                <form action="#" id="searchForm">
+                <form  action="phpSearch.php" method="post" id="searchForm">
                     <!--Search bar and search buttons group-->
                     <div class="row justify-content-center mt-4 search-group">
                         <div class="col-md-10">
                             <div class="input-group shadow md-form form-sm pl-0"> 
                                 
                                 <!-- SEARCH BAR -->
-                                <input class="form-control my-0 py-4  main-search-form " id="search" type="text" placeholder="Enter Ingredients, Recipes, Allergens, etc..." aria-label="Search">
+                                <input class="form-control my-0 py-4  main-search-form " id="search" name="search" type="text" placeholder="Enter Ingredients, Recipes, Allergens, etc..." aria-label="Search">
                                 
                                 <!-- SEARCH BUTTONS -->
                                 <div class="input-group-append">
@@ -101,6 +109,11 @@ else{
             </div>
         </section>
     </div>
+
+    
+
+
+
 		
     
     <!-- Optional JavaScript -->
@@ -109,5 +122,30 @@ else{
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <script type="text/javascript" src="../BakeItHappen/JavaScript/search.js" ></script>
+
+    <script type="text/javascript">
+   
+   $(document).ready(function(){  
+   
+   var loggedIn = "<?php echo isset($userLoggedIn) ?>";
+   if(loggedIn){
+       //show submit recipe and profile link
+       document.getElementById("submitLink").style.display = "block";
+       document.getElementById("profileLink").style.display = "block";
+       document.getElementById("registerLink").style.display = "none";
+       document.getElementById("logoutLink").style.display = "block";
+   
+
+   }
+   else{
+       // hide submit recipe and profile link and show login link
+       document.getElementById("submitLink").style.display = "none";
+       document.getElementById("profileLink").style.display = "none";
+       document.getElementById("registerLink").style.display = "block";
+       document.getElementById("logoutLink").style.display = "none";
+
+   }
+        });
+    </script>
   </body>
 </html>

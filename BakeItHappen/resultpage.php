@@ -3,7 +3,15 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
+if(isset($_SESSION['userLoggedIn'])){
+    $userLoggedIn = $_SESSION['userLoggedIn'];
+}
 ?>
+
 <html>
   <head>   
     <!-- Required meta tags -->
@@ -33,7 +41,7 @@ error_reporting(E_ALL);
           <div class="container-fluid ">
               <nav class="navbar navbar-expand-md navbar-dark bg-transparent "> 
 
-                <a class="navbar-brand " href="../BakeItHappen/home.html">Bake It Happen</a>
+                <a class="navbar-brand " href="../BakeItHappen/home.php">Bake It Happen</a>
                 <button class="navbar-toggler orange-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon orange-color"></span>
                 </button>
@@ -57,16 +65,26 @@ error_reporting(E_ALL);
                     </li>
 
                     <li class="nav-item"> 
-                        <a class="nav-link mt-1" href="/submit.html"> 
+                        <a href="submit.php"  class="nav-link mt-1" id="submitLink" href="/submit.php"> 
                         Submit Recipe 
                         </a> 
                     </li>
                      
                     <li class="nav-item "> 
-                        <a class="nav-link rounded-right mt-1" href="/home2.html"> 
+                        <a href="register.php"  class="nav-link rounded-right mt-1" id="registerLink" > 
                         Login/Signup 
                         </a> 
                     </li> 
+                    <li class="nav-item " id="profileLink"> 
+                            <a href="profile.php" type="php" class="nav-link rounded-right mt-1" > 
+                            Profile 
+                            </a> 
+                        </li>
+                        <li class="nav-item" id="logoutLink"> 
+                            <a class="nav-link rounded-right mt-1 " href="logout.php"> 
+                            Logout
+                            </a> 
+                        </li> 
                     
                   </ul> 
                 </div>
@@ -176,6 +194,31 @@ error_reporting(E_ALL);
     <!-- CUSTOM JS -->
     <script type="text/javascript" src="../BakeItHappen/JavaScript/results.js"></script>
     <script type="text/javascript" src="../BakeItHappen/JavaScript/search.js" ></script>
+    <script type="text/javascript">
+      
+      $(document).ready(function(){  
+      
+      var loggedIn = "<?php echo isset($userLoggedIn) ?>";
+      if(loggedIn){
+          //show submit recipe and profile link
+          document.getElementById("submitLink").style.display = "block";
+          document.getElementById("profileLink").style.display = "block";
+          document.getElementById("registerLink").style.display = "none";
+          document.getElementById("logoutLink").style.display = "block";
+
+      
+
+      }
+      else{
+          // hide submit recipe and profile link and show login link
+          document.getElementById("submitLink").style.display = "none";
+          document.getElementById("profileLink").style.display = "none";
+          document.getElementById("registerLink").style.display = "block";
+          document.getElementById("logoutLink").style.display = "none";
+
+      }
+            });
+    </script>
 
   </body>
 </html>

@@ -31,7 +31,7 @@ die("Connection failed: " . mysqli_connect_error());
 }
 
 //CREATE QUERY
-$query = "SELECT firstName, lastName, email FROM users WHERE username IN (?)";
+$query = "SELECT firstName, lastName, email, profilePic FROM users WHERE username IN (?)";
 $recipeQuery = "SELECT recID, recName FROM user_recipes Where username IN(?)";
 
 // prepare and bind
@@ -47,6 +47,7 @@ $row = $result->fetch_assoc();
 $email = $row["email"];
 $firstName = $row["firstName"];
 $lastName = $row["lastName"];
+$profilePic = $row["profilePic"];
 
 
 // prepare and bind RECIPE LIST QUERY
@@ -88,7 +89,7 @@ mysqli_close($conn);
   </head>
 
   <body>
-    <div class="container-fluid overlay">
+    <div class="">
         <header>
             <!--Front page banner image-->
             <img src="Pictures/banner2.png" class="img-long" width="1000" height="" alt="">
@@ -104,7 +105,7 @@ mysqli_close($conn);
                         </li>  -->
 
                         <li class="nav-item"> 
-                            <a class="nav-link  " href="home-loggedin.php"> 
+                            <a class="nav-link  " href="home.php"> 
                             Home 
                             </a> 
                         </li> 
@@ -113,7 +114,7 @@ mysqli_close($conn);
                             Submit Recipe 
                             </a> 
                         </li>
-						<li class="nav-item"> 
+						<li class="nav-item" id="logoutLink"> 
                             <a class="nav-link  " href="logout.php"> 
                             Logout
                             </a> 
@@ -137,7 +138,7 @@ mysqli_close($conn);
                 <div class="row justify-content-center mt-4 search-group">
                     <div class="col-md-10">
                         <div class="float-left pr-3 pb-3">
-							<img src="Pictures/Profile_avatar.png">
+							<img id="profilePic" src="Pictures/Profile_avatar.png">
 						</div>
 							<p id="username">Username: </p>
 							<p id="email">Email:</p>
@@ -163,16 +164,20 @@ mysqli_close($conn);
         var phpusername = "<?php if (isset($userLoggedIn)) {echo $userLoggedIn;} ?>";
         var phpemail = "<?php echo $email; ?>"; 
         var phpfirstName = "<?php echo $firstName; ?>"; 
+        var phpprofilePic = "<?php echo $profilePic; ?>"; 
         var phpRecipes = <?php echo json_encode($recipeList); ?>;
         var outusername = document.getElementById("username");
         var outemail = document.getElementById("email");
         var outname = document.getElementById("name");
         var outrecipes = document.getElementById("recipes_submitted");
+        var outpic = document.getElementById("profilePic");
         
         // ADD TO PAGE
         outusername.innerHTML += String(phpusername);
         outemail.innerHTML += String(phpemail);
         outname.innerHTML += String(phpfirstName);
+        // outpic.src = String(phpprofilePic);
+        console.log(phpprofilePic);
         for(var i = 0; i < phpRecipes.length; i++){ 
             var id = String(phpRecipes[i]["recID"]);
             var name = String(phpRecipes[i]["recName"])

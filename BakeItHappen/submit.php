@@ -26,7 +26,7 @@ session_start();
   </head>
 
   <body>
-    <div class="container-fluid overlay">
+    <div class="">
         <header>
             <!--Front page banner image-->
             <img src="Pictures/banner2.png" class="img-long" width="1000" height="" alt="">
@@ -46,9 +46,9 @@ session_start();
                             Home 
                             </a> 
                         </li> 
-                        <li class="nav-item "> 
-                            <a class="nav-link rounded-right " href="register.php" > 
-                            Login/Signup 
+                        <li class="nav-item " id="profileLink"> 
+                            <a href="profile.php" type="php" class="nav-link rounded-right " href="/profile.php"> 
+                            Profile 
                             </a> 
                         </li> 
                        

@@ -73,8 +73,9 @@ function getInputValue($name){
             <!--Top navigation bar-->
             <div class="container-fluid ">
                 <nav class="navbar navbar-expand  bg-transparent"> 
-                    <ul class="navbar-nav ml-auto "> 
+				<!-- <a class="navbar-brand" href="../BakeItHappen/home.html">Bake It Happen</a> -->
 
+                    <ul class="navbar-nav ml-auto "> 
                         <li class="nav-item"> 
                             <a class="nav-link  "href="home.html"> 
                             Home 
@@ -89,7 +90,7 @@ function getInputValue($name){
 		
 	<section>
 		<div class="container">
-		 <h1 class="alt-font" id="title">Bake It Happen</h1> 
+		 <h1 class="alt-font" id="title"></h1> 
 			<div id="background"> 
 			<div id="loginContainer">
 					<div id="inputContainer">
