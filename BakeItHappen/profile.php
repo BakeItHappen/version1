@@ -1,9 +1,11 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1); 
 include("includes/config.php");
 include("includes/handlers/register-handler.php");
 
 // session_destroy();
-session_start();
+// session_start();
 
 if(isset($_SESSION['userLoggedIn'])){
     $userLoggedIn = $_SESSION['userLoggedIn'];
@@ -14,23 +16,23 @@ else{
 $email ="";
 $firstName = "";
 $lastName = "";
+$recipeList = array();
 $servername = "localhost";
-  $username = "root";
-  $dbname = "bakeithappen";
-  $password = "";
+$username = "root";
+$dbname = "bakeithappen";
+$password = "";
 
-  // Create connection
-  $conn = new mysqli($servername, $username, $password, $dbname);
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-  // Check connection
-  if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
-  }
+// Check connection
+if (!$conn) {
+die("Connection failed: " . mysqli_connect_error());
+}
 
-  //CREATE QUERY
-$query = "SELECT firstName, lastName, email
-      FROM users
-      WHERE username IN (?)";
+//CREATE QUERY
+$query = "SELECT firstName, lastName, email FROM users WHERE username IN (?)";
+$recipeQuery = "SELECT recID, recName FROM user_recipes Where username IN(?)";
 
 // prepare and bind
 $stmt = $conn->prepare($query);
@@ -45,6 +47,21 @@ $row = $result->fetch_assoc();
 $email = $row["email"];
 $firstName = $row["firstName"];
 $lastName = $row["lastName"];
+
+
+// prepare and bind RECIPE LIST QUERY
+$stmt = $conn->prepare($recipeQuery);
+$stmt->bind_param("s", $userLoggedIn);
+$stmt->execute();
+$result = $stmt->get_result();
+
+//Get the recipes and save to an array
+while ($row = $result->fetch_assoc()) {
+    array_push($recipeList, $row);
+}
+
+mysqli_close($conn);
+
 
 ?>
 
@@ -92,7 +109,7 @@ $lastName = $row["lastName"];
                             </a> 
                         </li> 
                         <li class="nav-item"> 
-                            <a class="nav-link  " href="submit.html"> 
+                            <a class="nav-link  " href="submit.php"> 
                             Submit Recipe 
                             </a> 
                         </li>
@@ -100,16 +117,13 @@ $lastName = $row["lastName"];
                             <a class="nav-link  " href="logout.php"> 
                             Logout
                             </a> 
-                        </li> 						
+                        </li> 
+
                        
                     </ul> 
                 </nav> 
             </div>  
         </header>
-
-		<?php
-			//$query = mysqli_query($this->con, "SELECT * FROM Users WHERE username='$un' AND password='$pw'" );
-		?>
 
         <section>
             <div class="container">
@@ -126,9 +140,9 @@ $lastName = $row["lastName"];
 							<img src="Pictures/Profile_avatar.png">
 						</div>
 							<p id="username">Username: </p>
-							<p id="email">Email: </p>
-							<p id="name">Name: </p><br>
-							<p id="recipes_submitted">Recipes Submitted: 0</p><br>
+							<p id="email">Email:</p>
+							<p id="name">Name:</p><br>
+							<p id="recipes_submitted">Recipes Submitted: </p><br>
                             </div>
                         
                     </div>
@@ -145,18 +159,32 @@ $lastName = $row["lastName"];
         </section>
     </div>
     <script type="text/javascript">
-    // ACCESS PHP VARIABLES AND SAVE TO JS VARIABLES
-    var phpusername = "<?php if (isset($userLoggedIn)) {echo $userLoggedIn;} ?>";
-    var phpemail = "<?php echo $email; ?>"; 
-    var phpfirstName = "<?php echo $firstName; ?>"; 
-    var outusername = document.getElementById("username");
-    var outemail = document.getElementById("email");
-    var outname = document.getElementById("name");
-    
-    // ADD TO PAGE
-    outusername.innerHTML += String(phpusername);
-    outemail.innerHTML += String(phpemail);
-    outname.innerHTML += String(phpfirstName);
+        // ACCESS PHP VARIABLES AND SAVE TO JS VARIABLES
+        var phpusername = "<?php if (isset($userLoggedIn)) {echo $userLoggedIn;} ?>";
+        var phpemail = "<?php echo $email; ?>"; 
+        var phpfirstName = "<?php echo $firstName; ?>"; 
+        var phpRecipes = <?php echo json_encode($recipeList); ?>;
+        var outusername = document.getElementById("username");
+        var outemail = document.getElementById("email");
+        var outname = document.getElementById("name");
+        var outrecipes = document.getElementById("recipes_submitted");
+        
+        // ADD TO PAGE
+        outusername.innerHTML += String(phpusername);
+        outemail.innerHTML += String(phpemail);
+        outname.innerHTML += String(phpfirstName);
+        for(var i = 0; i < phpRecipes.length; i++){ 
+            var id = String(phpRecipes[i]["recID"]);
+            var name = String(phpRecipes[i]["recName"])
+            outrecipes.innerHTML += `<a href='http://localhost/Projects/BakeItHappen/fullrecipe.php?phpid=`+ id + `' onclick='setSession()'> `+name +` </a> `;
+        }       
+        function setSession(){
+                    // sessionStorage.setItem("phpId", id);
+                    // sessionStorage.setItem("phpName", name);
+                    // sessionStorage.setItem("phpDescription", description);
+                    sessionStorage.setItem("api", "no");
+                    sessionStorage.setItem("php", "yes");
+                 }  
 
     </script>
 		
