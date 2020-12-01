@@ -51,7 +51,7 @@ $profilePic = $row["profilePic"];
 
 
 // prepare and bind RECIPE LIST QUERY
-$stmt = $conn->prepare($recipeQuery);
+//$stmt = $conn->prepare($recipeQuery);
 $stmt->bind_param("s", $userLoggedIn);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -137,15 +137,27 @@ mysqli_close($conn);
                 <!--Search bar and search buttons group-->
                 <div class="row justify-content-center mt-4 search-group">
                     <div class="col-md-10">
-                        <div class="float-left pr-3 pb-3">
-							<img id="profilePic" src="Pictures/Profile_avatar.png">
 						</div>
-							<p id="username">Username: </p>
-							<p id="email">Email:</p>
-							<p id="name">Name:</p><br>
-							<p id="recipes_submitted">Recipes Submitted: </p><br>
-                            </div>
-                        
+							<table cellpadding="10" id="maintab" class="tablestyle">
+								<tr>
+									<td rowspan="3" class="colcenter align-top pr-4">
+										<img id="profilePic" src="Pictures/Profile_avatar.png" class="align-top" alt="user_avatar"/> 
+									</td>
+								</tr>
+								<tr>
+									<td class="pl-3 pr-3">
+										<p id="username">Username: </p>
+										<p id="email">Email: </p>
+										<p id="name">Name: </p>
+									</td>
+								</tr>
+								<tr>
+									<td class="pl-3 pr-3">
+										<p id="recipes_submitted">Recipes Submitted: </p>
+									</td>
+								</tr>
+							</table>
+						</div>
                     </div>
                 </div>
 
@@ -164,6 +176,7 @@ mysqli_close($conn);
         var phpusername = "<?php if (isset($userLoggedIn)) {echo $userLoggedIn;} ?>";
         var phpemail = "<?php echo $email; ?>"; 
         var phpfirstName = "<?php echo $firstName; ?>"; 
+		var phplastName = "<?php echo $lastName; ?>"; 
         var phpprofilePic = "<?php echo $profilePic; ?>"; 
         var phpRecipes = <?php echo json_encode($recipeList); ?>;
         var outusername = document.getElementById("username");
@@ -175,7 +188,7 @@ mysqli_close($conn);
         // ADD TO PAGE
         outusername.innerHTML += String(phpusername);
         outemail.innerHTML += String(phpemail);
-        outname.innerHTML += String(phpfirstName);
+        outname.innerHTML += String(phpfirstName) + " " + String(phplastName);
         // outpic.src = String(phpprofilePic);
         console.log(phpprofilePic);
         for(var i = 0; i < phpRecipes.length; i++){ 
