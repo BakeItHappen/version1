@@ -80,7 +80,7 @@ else{
                 <!--Search bar and search buttons group-->
                 <div class="row justify-content-center mt-4 search-group">
                     <div class="col-md-10">
-                        <p class="text-justify"> You have been logged out!</p>
+                        <p class="text-center"> You have been logged out!</p>
                         
                     </div>
                 </div>
@@ -98,6 +98,12 @@ else{
         </section>
     </div>
  
+ <?php 
+
+/*Provide new Location with header function*/ 
+header("Location:home.html") 
+
+?>
     
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
