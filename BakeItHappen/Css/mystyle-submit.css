@@ -108,9 +108,18 @@
 	width: 100%
 }
 
-form{
+div.form{
+	display: block;
 	padding-left: .5em;
-    padding-bottom: .5em;
+	padding-bottom: .5em;
+	text-align: center;
+}
+form
+{
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    //text-align: left;
 }
 
 table{
